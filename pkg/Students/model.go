@@ -11,7 +11,7 @@ type Student struct {
 	School   string `json:"School"`
 }
 
-var students = []Student{
+var allstudents = []Student{
 	{
 		Id:      "1",
 		Name:   "The Cinnamon Club",
@@ -46,11 +46,11 @@ var students = []Student{
 }
 
 func GetRestaurants() []Student {
-	return students
+	return allstudents
 }
 
 func GetRestaurant(id string) (*Student, error) {
-	for _, r := range students {
+	for _, r := range allstudents {
 		if r.Id == id {
 			return &r, nil
 		}

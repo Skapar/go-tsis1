@@ -4,13 +4,12 @@ import (
 	"encoding/json"
 	"net/http"
 
+	students "github.com/Skapar/go-tsis1/pkg/Students"
 	"github.com/gorilla/mux"
-
-	students "github.com/Skapar/go-tsis1"
 )
 
 type Response struct {
-	Restaurants []students.Restaurant `json:"restaurants"`
+	Students []students.Student `json:"student"`
 }
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
@@ -31,11 +30,11 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request) {
-	respondWithJSON(w, http.StatusOK, map[string]string{"status": "ok", "info": abrplus.Info()})
+	respondWithJSON(w, http.StatusOK, map[string]string{"status": "ok", "info": students.Info()})
 }
 
 func restaurants(w http.ResponseWriter, r *http.Request) {
-	restaurants := abrplus.GetRestaurants()
+	restaurants := students.GetRestaurants()
 	respondWithJSON(w, http.StatusOK, restaurants)
 }
 
@@ -43,7 +42,7 @@ func restaurant(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	restaurant, err := abrplus.GetRestaurant(id)
+	restaurant, err := students.GetRestaurant(id)
 	if err != nil {
 		respondWithError(w, http.StatusNotFound, "404 Not Found")
 		return
