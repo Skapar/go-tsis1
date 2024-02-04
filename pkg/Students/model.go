@@ -19,9 +19,6 @@ var studentList = []Student{
 	{ID: "5", Name: "Edward", IDNumber: "21B031141", School: "ISE"},
 }
 
-func Check() string {
-	return "This is the Students package"
-}
 
 func GetAllStudents() []Student {
 	return studentList

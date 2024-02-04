@@ -14,7 +14,7 @@ type ErrorResponse struct {
 
 type HealthCheckResponse struct {
 	Status string `json:"status"`
-	Check   string `json:"check"`
+	Check   string `json:"Check"`
 }
 
 func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
