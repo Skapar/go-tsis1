@@ -43,7 +43,7 @@ func getStudentByIDHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	studentID := vars["id"]
 
-	student, err := students.GetStudentByID(studentID)
+	student, err := studentik.GetStudentByID(studentID)
 	if err != nil {
 		writeJSONResponse(w, http.StatusNotFound, ErrorResponse{"Student not found"})
 		return
