@@ -31,7 +31,7 @@ func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.Info()})
+	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.health_check()})
 }
 
 func getAllStudentsHandler(w http.ResponseWriter, r *http.Request) {
