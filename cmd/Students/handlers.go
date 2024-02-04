@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/Skapar/go-tsis1/pkg/students"
+	students "github.com/Skapar/go-tsis1/pkg/students"
 	"github.com/gorilla/mux"
 )
 
@@ -31,7 +31,7 @@ func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.health_check()})
+	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.Info()})
 }
 
 func getAllStudentsHandler(w http.ResponseWriter, r *http.Request) {
