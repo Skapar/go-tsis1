@@ -35,7 +35,7 @@ func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getAllStudentsHandler(w http.ResponseWriter, r *http.Request) {
-	allStudents := students.GetAllStudents()
+	allStudents := studentik.GetAllStudents()
 	writeJSONResponse(w, http.StatusOK, allStudents)
 }
 
