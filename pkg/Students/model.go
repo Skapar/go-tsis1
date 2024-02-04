@@ -5,55 +5,29 @@ import (
 )
 
 type Student struct {
-	Id       string `json:"id"`
+	ID       string `json:"id"`
 	Name     string `json:"Name"`
-	Idnumber string `json:"Number"`
+	IDNumber string `json:"Number"`
 	School   string `json:"School"`
 }
 
-var allstudents = []Student{
-	{
-		Id:      "1",
-		Name:   "The Cinnamon Club",
-		Idnumber: "The Old Westminster Library, 30-32 Great Smith St, Westminster, London SW1P 3BU",
-		School:    "Indian",
-	},
-	{
-		Id:      "2",
-		Name:   "The Cinnamon Club",
-		Idnumber: "The Old Westminster Library, 30-32 Great Smith St, Westminster, London SW1P 3BU",
-		School:    "Indian",
-	},
-	{
-		Id:      "3",
-		Name:   "The Cinnamon Club",
-		Idnumber: "The Old Westminster Library, 30-32 Great Smith St, Westminster, London SW1P 3BU",
-		School:    "Indian",
-	},
-	{
-		Id:      "4",
-		Name:   "The Cinnamon Club",
-		Idnumber: "The Old Westminster Library, 30-32 Great Smith St, Westminster, London SW1P 3BU",
-		School:    "Indian",
-	},
-	{
-		Id:      "5",
-		Name:   "The Cinnamon Club",
-		Idnumber: "The Old Westminster Library, 30-32 Great Smith St, Westminster, London SW1P 3BU",
-		School:    "Indian",
-	},
-	
+var studentList = []Student{
+	{ID: "1", Name: "Dauren", IDNumber: "22B031142", School: "SITE"},
+	{ID: "2", Name: "Bob", IDNumber: "21B031152", School: "BS"},
+	{ID: "3", Name: "Charlie", IDNumber: "23B031146", School: "FEOGI"},
+	{ID: "4", Name: "Diana", IDNumber: "20B031145", School: "MCM"},
+	{ID: "5", Name: "Edward", IDNumber: "21B031141", School: "ISE"},
 }
 
-func GetRestaurants() []Student {
-	return allstudents
+func GetAllStudents() []Student {
+	return studentList
 }
 
-func GetRestaurant(id string) (*Student, error) {
-	for _, r := range allstudents {
-		if r.Id == id {
-			return &r, nil
+func GetStudentByID(id string) (*Student, error) {
+	for _, student := range studentList {
+		if student.ID == id {
+			return &student, nil
 		}
 	}
-	return nil, errors.New("Students not found")
+	return nil, errors.New("student not found")
 }

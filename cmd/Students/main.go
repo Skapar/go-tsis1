@@ -1,22 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
-const PORT = ":8080"
-
 func main() {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/health-check", healthCheck)
-	r.HandleFunc("/restaurants", restaurants)
-	r.HandleFunc("/restaurants/{id:[0-9]+}", restaurant)
+	r.HandleFunc("/health", healthCheckHandler)
 
-	log.Printf("Starting server on %s\n", PORT)
-	err := http.ListenAndServe(PORT, r)
-	log.Fatal(err)
+	r.HandleFunc("/students", getAllStudentsHandler)
+	r.HandleFunc("/student/{id}", getStudentByIDHandler)
+
+	fmt.Println("Server listening on port 8080")
+
+	log.Fatal(http.ListenAndServe(":8080", r))
 }

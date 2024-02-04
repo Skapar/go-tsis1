@@ -4,23 +4,24 @@ import (
 	"encoding/json"
 	"net/http"
 
-	students "github.com/Skapar/go-tsis1/pkg/Students"
+	"github.com/Skapar/go-tsis1/pkg/students"
 	"github.com/gorilla/mux"
 )
 
-type Response struct {
-	Students []students.Student `json:"student"`
+type ErrorResponse struct {
+	Error string `json:"error"`
 }
 
-func respondWithError(w http.ResponseWriter, code int, message string) {
-	respondWithJSON(w, code, map[string]string{"error": message})
+type HealthCheckResponse struct {
+	Status string `json:"status"`
+	Info   string `json:"info"`
 }
 
-func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
+func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
 	response, err := json.Marshal(payload)
-
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, "500 Internal Server Error")
+		w.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(w).Encode(ErrorResponse{"Internal Server Error"})
 		return
 	}
 
@@ -29,24 +30,24 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Write(response)
 }
 
-func healthCheck(w http.ResponseWriter, r *http.Request) {
-	respondWithJSON(w, http.StatusOK, map[string]string{"status": "ok", "info": students.Info()})
+func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.Info()})
 }
 
-func restaurants(w http.ResponseWriter, r *http.Request) {
-	restaurants := students.GetRestaurants()
-	respondWithJSON(w, http.StatusOK, restaurants)
+func getAllStudentsHandler(w http.ResponseWriter, r *http.Request) {
+	allStudents := students.GetAllStudents()
+	writeJSONResponse(w, http.StatusOK, allStudents)
 }
 
-func restaurant(w http.ResponseWriter, r *http.Request) {
+func getStudentByIDHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	studentID := vars["id"]
 
-	restaurant, err := students.GetRestaurant(id)
+	student, err := students.GetStudentByID(studentID)
 	if err != nil {
-		respondWithError(w, http.StatusNotFound, "404 Not Found")
+		writeJSONResponse(w, http.StatusNotFound, ErrorResponse{"Student not found"})
 		return
 	}
 
-	respondWithJSON(w, http.StatusOK, restaurant)
+	writeJSONResponse(w, http.StatusOK, student)
 }
