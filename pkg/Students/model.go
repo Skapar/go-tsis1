@@ -19,7 +19,7 @@ var studentList = []Student{
 	{ID: "5", Name: "Edward", IDNumber: "21B031141", School: "ISE"},
 }
 
-func Info() string {
+func Check() string {
 	return "This is the Students package"
 }
 

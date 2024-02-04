@@ -14,7 +14,7 @@ type ErrorResponse struct {
 
 type HealthCheckResponse struct {
 	Status string `json:"status"`
-	Info   string `json:"info"`
+	Check   string `json:"check"`
 }
 
 func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
@@ -31,7 +31,7 @@ func writeJSONResponse(w http.ResponseWriter, code int, payload interface{}) {
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
-	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.Info()})
+	writeJSONResponse(w, http.StatusOK, HealthCheckResponse{"ok", students.Check()})
 }
 
 func getAllStudentsHandler(w http.ResponseWriter, r *http.Request) {
